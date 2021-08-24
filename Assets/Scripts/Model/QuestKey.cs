@@ -7,6 +7,7 @@ namespace BerserkAdventure
     {
         string massage = "Нажать";
         [ SerializeField] GameObject openedObject;
+        UiActionMassageText uiActionMassageText;
 
         public void ActivationObject()
         {
@@ -18,6 +19,11 @@ namespace BerserkAdventure
 
         public string ObjectMassage()
         {
+            if (!uiActionMassageText)
+            {
+                uiActionMassageText = FindObjectOfType<UiActionMassageText>();
+            }
+            uiActionMassageText.Text = massage;
            //Debug.Log(massage);
             return massage;
         }

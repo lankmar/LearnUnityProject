@@ -4,8 +4,18 @@ namespace BerserkAdventure
     {
         MainMenu,
         Settings,
+        Game,
         Win,
         Lose,
-        Pause
+        Pause,
+        Quest,
+        GameContinue,
+        Help
+    }
+
+    public enum Language
+    {
+        English,
+        Russian
     }
 }

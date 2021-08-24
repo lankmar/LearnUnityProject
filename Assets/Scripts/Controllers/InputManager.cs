@@ -91,6 +91,7 @@ namespace BerserkAdventure
         {
             if (Input.GetKeyDown(actionInput) && cameraMain.GetComponent<CameraController>().InteractibleObjectSearch().tag == "Key")
             {
+                //Debug.Log("cameraMain.GetComponent<CameraController>().InteractibleObjectSearch()" + cameraMain.GetComponent<CameraController>().InteractibleObjectSearch().name);
                 cameraMain.transform.GetComponent<CameraController>().ObjectActvation();
             }
         }

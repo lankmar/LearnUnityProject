@@ -8,7 +8,7 @@ namespace BerserkAdventure
         [SerializeField] Image musicTitle;
         [SerializeField] Image effectsTitle;
         [SerializeField] Image languageTitle;
-        [SerializeField] Image control;
+        //[SerializeField] Image control;
         [SerializeField] Button exitButton;
         GridLayoutGroup gridLayoutGroup;
         Vector2 screenSize;
@@ -33,11 +33,11 @@ namespace BerserkAdventure
 
         //private void SetTitleSize()
         //{
-        //    Vector2 size = new Vector2();
-        //    if(musicTitle) musicTitle.transform.localScale = size;
+        //    Vector2 size = new Vector2(1,0.5f);
+        //    if (musicTitle) musicTitle.transform.localScale = size;
         //    if (effectsTitle) effectsTitle.transform.localScale = size;
         //    if (languageTitle) languageTitle.transform.localScale = size;
-        //    if (control) control.transform.localScale = size;
+        //    //if (control) control.transform.localScale = size;
         //}
 
         private void SetTitleSprite()
@@ -47,7 +47,7 @@ namespace BerserkAdventure
                 musicTitle.sprite = Resources.Load<Sprite>("UI/En/Music") as Sprite;
                 effectsTitle.sprite = Resources.Load<Sprite>("UI/En/Effects") as Sprite;
                 languageTitle.sprite = Resources.Load<Sprite>("UI/En/Language") as Sprite;
-                control.sprite = Resources.Load<Sprite>("UI/En/Control") as Sprite;
+               // control.sprite = Resources.Load<Sprite>("UI/En/Control") as Sprite;
                 exitButton.image.sprite = Resources.Load<Sprite>("UI/En/Exit") as Sprite;
             }
             if (Main.mainGame.language == Language.Russian)
@@ -55,18 +55,18 @@ namespace BerserkAdventure
                 musicTitle.sprite = Resources.Load<Sprite>("UI/Ru/Music") as Sprite;
                 effectsTitle.sprite = Resources.Load<Sprite>("UI/Ru/Effects") as Sprite;
                 languageTitle.sprite = Resources.Load<Sprite>("UI/Ru/Language") as Sprite;
-                control.sprite = Resources.Load<Sprite>("UI/Ru/Control") as Sprite;
+               // control.sprite = Resources.Load<Sprite>("UI/Ru/Control") as Sprite;
                 exitButton.image.sprite = Resources.Load<Sprite>("UI/Ru/Exit") as Sprite;
             }
         }
-                   private void SetSpasing()
+        private void SetSpasing()
         {
-            gridLayoutGroup.spacing = new Vector2(screenSize.x / 1.5f, screenSize.y / 4);
+            gridLayoutGroup.spacing = new Vector2(600, 170);
         }
 
         private void SetSellSize()
         {
-            gridLayoutGroup.cellSize = new Vector2(screenSize.x / 1f, screenSize.y / 2.5f);
+            gridLayoutGroup.cellSize = new Vector2(screenSize.x / 1f, screenSize.y / 8f);
         }
 
         public void SetMenu()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace BerserkAdventure
@@ -9,6 +10,17 @@ namespace BerserkAdventure
         [SerializeField] Image backgraund;
         [SerializeField] Button continueButton;
         [SerializeField] Button exit;
+
+        private void Start()
+        {
+            SetScale();
+        }
+
+        private void SetScale()
+        {
+            RectTransform rect = GetComponent<RectTransform>();
+            rect.localScale = new Vector2(Screen.width / 2, Screen.height);
+        }
 
         private void SetSprites()
         {

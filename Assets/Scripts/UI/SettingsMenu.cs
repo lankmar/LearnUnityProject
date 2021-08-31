@@ -8,6 +8,7 @@ namespace BerserkAdventure
         [SerializeField] Scrollbar music;
         [SerializeField] Scrollbar effects;
         [SerializeField] Dropdown language;
+        [SerializeField] Button control;
 
         [SerializeField] AudioSource audioSourceMusic;
         [SerializeField] AudioSource audioSourceEffects;
@@ -96,13 +97,8 @@ namespace BerserkAdventure
         private void SetElementsSize()
         {
             Vector2 size = new Vector2(1, 1);  
-            if (Screen.height < 800) size = new Vector2(1,1);
-            if (Screen.height >= 800 && Screen.height < 1280) size = new Vector2(1.7f, 1.7f);
-            if (Screen.height >= 1280 && Screen.height < 1920) size = new Vector2(2.55f, 2.55f);
-            if (Screen.height >= 1920 && Screen.height < 2160) size = new Vector2(3.85f, 3.85f);
-            if (Screen.height >= 2160 && Screen.height < 2560) size = new Vector2(3.9f, 3.9f);
-            if (Screen.height >= 2560 && Screen.height < 2960) size = new Vector2(5.1f, 5.1f);
-            if (Screen.height >= 2960) size = new Vector2(5.1f, 5.1f);
+            size = new Vector2(1,1);
+
             gameObject.transform.localScale = size;
         }
 

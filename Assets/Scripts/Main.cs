@@ -65,9 +65,9 @@ namespace BerserkAdventure
             mainCamera = FindObjectOfType<Camera>();
             mainCamera.GetComponent<CameraController>().enabled = false;
             berserk.GetComponent<InputManager>().enabled = false;
-            // gameState = GameStage.MainMenu; //по идеи после этого должно запускаться главное меню,  но пока сразу в игру
+            gameState = GameStage.MainMenu; //по идеи после этого должно запускаться главное меню,  но пока сразу в игру
 
-            gameState = GameStage.Game;
+            //gameState = GameStage.Game;
             CheckStage();
 
         }
@@ -104,6 +104,7 @@ namespace BerserkAdventure
                     mainGame.Lose();
                     break;
                 case GameStage.Settings:
+                    mainGame.SettingsMenuLoad();
                     break;
                 case GameStage.GameContinue:
                     mainGame.GameContinue();
@@ -119,10 +120,19 @@ namespace BerserkAdventure
             }
         }
 
+        private void SettingsMenuLoad()
+        {
+            mainCamera = FindObjectOfType<Camera>();
+            mainCamera.GetComponent<CameraController>().enabled = false;
+            allCanvases = FindObjectsOfType<Canvas>();
+            canvasGroup = uiLoader.CanvasInitialization(ref allCanvases);
+            uiLoader.CanvasSwitchOn("Settings", null);
+        }
+
         private void GameQuest()
         {
             ts = TimeSpan.FromSeconds(timeTrapActivation);
-            uiLoader.CanvasSwitchOn("Quest", null);
+            uiLoader.CanvasSwitchOn("Quest", "GameUI");
             foreach (var item in FindObjectsOfType<Canvas>())
             {
                 if (item.GetComponent<QuestTextSettings>() != null) item.GetComponentInChildren<Text>().text = string.Format("Выберететесь из ловушки за {0}:{1}", ts.Minutes, ts.Seconds);
@@ -146,6 +156,8 @@ namespace BerserkAdventure
 
         private void GameContinue()
         {
+            mainCamera = FindObjectOfType<Camera>();
+            mainCamera.GetComponent<CameraController>().enabled = true;
             uiLoader.CanvasSwitchOn("GameUI", null);
             Time.timeScale = 1;
         }

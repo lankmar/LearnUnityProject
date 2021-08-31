@@ -13,6 +13,7 @@ namespace BerserkAdventure
 
         public void Play()
         {
+            Main.gameState = GameStage.Game;
             Main.CheckStage();
         }
 
@@ -49,25 +50,11 @@ namespace BerserkAdventure
             Application.Unload();
             Application.Quit();
         }
-        public void NextGame()
-        {
-            Time.timeScale = 1;
 
-            //if(Main.mainGame.currentGameType == Main.ClassicGame)
-            //{
-            //    StartAdd();
-            //    Play();
-            //}
-            //else 
-            //{
-            //    Main.gameState = GameStage.MainMenu;
-            //    Main.CheckStage();
-            //}
-        }
 
         public void Again()
         {
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
             //Main.gameState = GameStage.Play;
             Main.CheckStage();
         }

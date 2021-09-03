@@ -19,6 +19,7 @@ namespace BerserkAdventure
         public string rotateCameraXInput = "Mouse X";
         public string rotateCameraYInput = "Mouse Y";
         public KeyCode actionInput = KeyCode.E;
+        public KeyCode pauseInput = KeyCode.Escape;
 
         [HideInInspector] public MovementCharController charMovement;
         [HideInInspector] public CameraController tpCamera;
@@ -84,14 +85,24 @@ namespace BerserkAdventure
             JumpInput();
             AttackInput();
             ActionInput();
-
+            PauseInput();
         }
 
         private void ActionInput()
         {
             if (Input.GetKeyDown(actionInput) && cameraMain.GetComponent<CameraController>().InteractibleObjectSearch().tag == "Key")
             {
+                //Debug.Log("cameraMain.GetComponent<CameraController>().InteractibleObjectSearch()" + cameraMain.GetComponent<CameraController>().InteractibleObjectSearch().name);
                 cameraMain.transform.GetComponent<CameraController>().ObjectActvation();
+            }
+        }
+
+        private void PauseInput()
+        {
+            if (Input.GetKeyDown(pauseInput)&& Main.gameState == GameStage.Game)
+            {
+                Main.gameState = GameStage.Pause;
+                Main.CheckStage();
             }
         }
 

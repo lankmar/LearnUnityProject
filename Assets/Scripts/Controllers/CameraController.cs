@@ -55,6 +55,7 @@ namespace BerserkAdventure
         private float cullingHeight = 0.2f;
         private float cullingMinDist = 0.1f;
         Transform raycastTransform;
+        UiActionMassageText uiActionMassageText;
 
         #endregion
 
@@ -102,7 +103,18 @@ namespace BerserkAdventure
                     if (hitInfo.collider.GetComponent<QuestKey>())
                     {
                         hitInfo.collider.GetComponent<QuestKey>().ObjectMassage();
-                        Debug.Log(hitInfo.collider.GetComponent<QuestKey>().ObjectMassage());
+                    }
+                     else if (hitInfo.collider.GetComponent<QuestCandles>())
+                     {
+                        hitInfo.collider.GetComponent<QuestCandles>().ObjectMassage();
+                     }
+                    else
+                    {
+                        if (!uiActionMassageText)
+                        {
+                            uiActionMassageText = FindObjectOfType<UiActionMassageText>();
+                        }
+                        uiActionMassageText.Text = "";
                     }
                     return hitInfo.collider.gameObject;
                 }

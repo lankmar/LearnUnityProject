@@ -5,7 +5,7 @@ namespace BerserkAdventure
 {
     public class GameMenuElements : MonoBehaviour
     {
-        //[SerializeField] Image scoreTitle;
+        [SerializeField] Image imageHp;
         //[SerializeField] Image levelTitle;
         //[SerializeField] Text score;
         //[SerializeField] Text level;
@@ -20,18 +20,19 @@ namespace BerserkAdventure
 
         // [SerializeField] Image imageBackground;
 
-        //public void Start()
-        //{
-        //    imageBackground = gameObject.GetComponent<Image>() as Image;
-        //    screenSize = new Vector2(Screen.height, Screen.width);
-        //    SetTitleSprite();
-        //    SetTitleSize();
-        //    SetTitlesPosition();
-        //    SetImageSize();
-        //}
+        public void Start()
+        {
+            //imageHp = GetComponent<UiHpImage>().gameObject.GetComponent<Image>();
+            //    imageBackground = gameObject.GetComponent<Image>() as Image;
+            //    screenSize = new Vector2(Screen.height, Screen.width);
+            //    SetTitleSprite();
+            //    SetTitleSize();
+            //    SetTitlesPosition();
+            //    SetImageSize();
+        }
 
 
-        private void SetImageSize()
+            private void SetImageSize()
         {
            // if (imageBackground) imageBackground.transform.localScale = new Vector2(0.5f, 0.5f);
         }

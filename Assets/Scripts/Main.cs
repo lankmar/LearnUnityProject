@@ -27,12 +27,15 @@ namespace BerserkAdventure
         TimeSpan ts = new TimeSpan();
         public bool timerIsActive = false;
         UiTimerText uiTimerText;
+        UiHpImage uiHpImage;
         #endregion
 
         #region GameSettings
         public GameSettings gameSettings;
         public Language language;
         #endregion
+
+        Berserk charBerserk;
 
 
         private void Awake()
@@ -47,12 +50,14 @@ namespace BerserkAdventure
             {
                 berserk = FindObjectOfType<InputManager>().gameObject;
             }
+            charBerserk = FindObjectOfType<Berserk>();
         }
 
         private void Start()
         {
             //var path = Application.dataPath;
             uiTimerText = FindObjectOfType<UiTimerText>();
+            uiHpImage = FindObjectOfType<UiHpImage>();
             allCanvases = FindObjectsOfType<Canvas>();
             canvasGroup = uiLoader.CanvasInitialization(ref allCanvases);
             timer = new Timer();
@@ -65,7 +70,7 @@ namespace BerserkAdventure
             mainCamera = FindObjectOfType<Camera>();
             mainCamera.GetComponent<CameraController>().enabled = false;
             berserk.GetComponent<InputManager>().enabled = false;
-            gameState = GameStage.MainMenu; //по идеи после этого должно запускаться главное меню,  но пока сразу в игру
+            gameState = GameStage.MainMenu; 
 
             //gameState = GameStage.Game;
             CheckStage();
@@ -80,6 +85,11 @@ namespace BerserkAdventure
             //    gameState = GameStage.Pause;
             //    CheckStage();
             //}
+            if (gameState == GameStage.Game)
+            { 
+                if(!uiHpImage) uiHpImage = FindObjectOfType<UiHpImage>();
+                uiHpImage.ImageHp = charBerserk.Hp / 100;
+            }
         }
 
         public static void CheckStage()

@@ -110,11 +110,13 @@ namespace BerserkAdventure
 
         public void Attack(bool value)
         {
+            if (!isAttackReady) return;
             isAttack = true;
             if (value )
             {
-                Debug.Log("Attack method");
                 animator.CrossFadeInFixedTime("Attack", 0.25f);
+                isAttackReady = false;
+                Invoke("AttackTimer", 0.9f);
             }
         }
 
@@ -132,6 +134,12 @@ namespace BerserkAdventure
                 animator.CrossFadeInFixedTime("Jump", 0.1f);
             else
                 animator.CrossFadeInFixedTime("JumpMove", .2f);
+        }
+
+        public bool isAttackReady = true;
+        private void AttackTimer()
+        {
+            isAttackReady = true;
         }
     }
 }

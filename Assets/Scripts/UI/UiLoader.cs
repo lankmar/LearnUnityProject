@@ -18,7 +18,7 @@ namespace BerserkAdventure
         public Canvas[] canvases; //TODO выдает  ошибку
         Canvas canvasMainMenu;
         Canvas game;
-        Canvas gameOver;
+        Canvas win;
         Canvas settings;
         Canvas lose;
         Canvas pause;
@@ -62,9 +62,9 @@ namespace BerserkAdventure
                     pause = item;
                     uiLoaderArr.Add(item);
                 }
-                if (item.name == "GameOver")
+                if (item.name == "Win")
                 {
-                    gameOver = item;
+                    win = item;
                     uiLoaderArr.Add(item);
                 } 
                 if (item.name == "Quest")

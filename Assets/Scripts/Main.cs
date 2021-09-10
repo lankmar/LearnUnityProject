@@ -14,6 +14,9 @@ namespace BerserkAdventure
         [SerializeField] private GameObject berserk;
         UiLoader uiLoader;
         public static int playerScore;
+        [SerializeField]  List<Enemy> enemies;
+        public static int enemyCount;
+        [HideInInspector] public Berserk charBerserk;
         public Canvas[] allCanvases;
 
         public GameStage currentGameStage = GameStage.MainMenu;
@@ -27,12 +30,14 @@ namespace BerserkAdventure
         TimeSpan ts = new TimeSpan();
         public bool timerIsActive = false;
         UiTimerText uiTimerText;
+        UiHpImage uiHpImage;
         #endregion
 
         #region GameSettings
         public GameSettings gameSettings;
         public Language language;
         #endregion
+
 
 
         private void Awake()
@@ -47,12 +52,14 @@ namespace BerserkAdventure
             {
                 berserk = FindObjectOfType<InputManager>().gameObject;
             }
+            charBerserk = FindObjectOfType<Berserk>();
         }
 
         private void Start()
         {
             //var path = Application.dataPath;
             uiTimerText = FindObjectOfType<UiTimerText>();
+            uiHpImage = FindObjectOfType<UiHpImage>();
             allCanvases = FindObjectsOfType<Canvas>();
             canvasGroup = uiLoader.CanvasInitialization(ref allCanvases);
             timer = new Timer();
@@ -65,7 +72,7 @@ namespace BerserkAdventure
             mainCamera = FindObjectOfType<Camera>();
             mainCamera.GetComponent<CameraController>().enabled = false;
             berserk.GetComponent<InputManager>().enabled = false;
-            gameState = GameStage.MainMenu; //по идеи после этого должно запускаться главное меню,  но пока сразу в игру
+            gameState = GameStage.MainMenu; 
 
             //gameState = GameStage.Game;
             CheckStage();
@@ -80,6 +87,11 @@ namespace BerserkAdventure
             //    gameState = GameStage.Pause;
             //    CheckStage();
             //}
+            if (gameState == GameStage.Game)
+            { 
+                if(!uiHpImage) uiHpImage = FindObjectOfType<UiHpImage>();
+                uiHpImage.ImageHp = charBerserk.Hp / 100;
+            }
         }
 
         public static void CheckStage()
@@ -173,6 +185,8 @@ namespace BerserkAdventure
 
         private void GameStart()
         {
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
+            enemyCount = enemies.Length;
             currentGameStage = GameStage.Game;
             StartLoadGame();
             //uiTimerText = FindObjectOfType<UiTimerText>();
@@ -212,7 +226,7 @@ namespace BerserkAdventure
         {
             if (mainGame.currentGameStage == GameStage.Game)
             {
-                    uiLoader.CanvasSwitchOn("FinalWin", null);
+                    uiLoader.CanvasSwitchOn("Win", null);
                     Time.timeScale = 0;
                     return;
             }

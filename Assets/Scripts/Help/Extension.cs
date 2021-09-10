@@ -5,6 +5,7 @@ namespace BerserkAdventure
 {
     public static class Extension
     {
+
         public static T[] Append<T>(this T[] arrayInitial, T[] arrayToAppend)
         {
             if (arrayToAppend == null)

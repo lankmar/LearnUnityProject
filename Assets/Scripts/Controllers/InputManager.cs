@@ -20,6 +20,8 @@ namespace BerserkAdventure
         public string rotateCameraYInput = "Mouse Y";
         public KeyCode actionInput = KeyCode.E;
         public KeyCode pauseInput = KeyCode.Escape;
+        public KeyCode hpPotionActivation = KeyCode.Q;
+        public KeyCode staminaPotionActivation = KeyCode.F2;
 
         [HideInInspector] public MovementCharController charMovement;
         [HideInInspector] public CameraController tpCamera;
@@ -30,6 +32,7 @@ namespace BerserkAdventure
         protected virtual void Start()
         {
             InitilizeController();
+            hpPotionActivation = KeyCode.Q;
             InitializeTpCamera();
         }
 
@@ -86,14 +89,34 @@ namespace BerserkAdventure
             AttackInput();
             ActionInput();
             PauseInput();
+            IncreaseInput();
+        }
+
+        private void IncreaseInput()
+        {
+            if (!Main.mainGame.charBerserk) return;
+            if (Main.gameState == GameStage.Game)
+            {
+                if (Input.GetKeyDown(hpPotionActivation))
+                {
+                      Debug.Log("IncreaseInput()2");
+                    Main.mainGame.charBerserk.IncreaseParameter(70, PotionType.HpPotion);
+                }
+                if (Input.GetKeyDown(staminaPotionActivation))
+                {
+                    Debug.Log("IncreaseInput()3");
+                    Main.mainGame.charBerserk.IncreaseParameter(70, PotionType.StaminaPotion);
+                }
+            }
         }
 
         private void ActionInput()
         {
+            if (!cameraMain.GetComponent<CameraController>().InteractibleObjectSearch()) return;
             if (Input.GetKeyDown(actionInput) && cameraMain.GetComponent<CameraController>().InteractibleObjectSearch().tag == "Key")
             {
-                //Debug.Log("cameraMain.GetComponent<CameraController>().InteractibleObjectSearch()" + cameraMain.GetComponent<CameraController>().InteractibleObjectSearch().name);
-                cameraMain.transform.GetComponent<CameraController>().ObjectActvation();
+
+                cameraMain.transform.GetComponent<CameraController>().ObjectActvation(); 
             }
         }
 

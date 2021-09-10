@@ -7,6 +7,9 @@ TagManager:
   - StaticObject
   - RayCastPoint
   - Key
+  - Canvas
+  - WayPoint
+  - Enemy
   layers:
   - Default
   - TransparentFX

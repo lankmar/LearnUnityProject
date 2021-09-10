@@ -74,7 +74,6 @@ namespace BerserkAdventure
 				if (_vision.VisionMath(Transform, _target))
 				{
 					_isTarget = true;
-					Debug.Log(1);
 				}
 			}
 		}
@@ -89,7 +88,8 @@ namespace BerserkAdventure
 		{
 			if (Hp > 0)
 			{
-				Hp -= info.Damage;
+				Hp -= Random.Range(60,70);
+				//Hp -= info.Damage;
 			}
 
 			if (Hp <= 0)
@@ -97,8 +97,24 @@ namespace BerserkAdventure
 				_isDeath = true;
 				_agent.enabled = false;
 				_enemyAnimator.Play("Death1");
+				Main.enemyCount--;
+				gameObject.GetComponent<Collider>().enabled = false;
+				Debug.Log(Main.enemyCount);
+				if (Main.enemyCount == 0)
+				{
+					Invoke("WinGame", 2.5f);
+
+				}
 			}
+
 		}
+
+		private void WinGame()
+		{
+			Main.gameState = GameStage.Win;
+			Main.CheckStage();
+		}
+
 		private Vector3 SetPoint()
 		{
 			Vector3 tempVector = patrolPoints[Random.Range(0, patrolPoints.Count)].position;

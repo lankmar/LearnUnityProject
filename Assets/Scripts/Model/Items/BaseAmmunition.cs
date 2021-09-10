@@ -14,7 +14,8 @@ namespace BerserkAdventure
 		protected override void Awake()
 		{
 			base.Awake();
-			_curDamage = _baseDamage;
+			_curDamage = Random.Range(5,10);
+			//_curDamage = _baseDamage;
 		}
 
 		private void Start()

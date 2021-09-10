@@ -7,6 +7,7 @@ namespace BerserkAdventure
     {
         private Image _imageHp;
 
+
         private void Start()
         {
             _imageHp = GetComponent<Image>();

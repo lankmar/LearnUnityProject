@@ -1,19 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 namespace BerserkAdventure {
 [RequireComponent (typeof(Renderer), typeof (SphereCollider))]
-    public class EnemySphere : MonoBehaviour, IInteractibleObject
+    public class EnemySphere : PickUpObject, IInteractibleObject
     {
         string massage = "Забрать";
         [SerializeField] GameObject openedObject;
         UiActionMassageText uiActionMassageText;
+        bool isVision = false;
 
         public void ActivationObject()
         {
-            Debug.Log("ActivationObject Enemy");
+            if (isVision)
+            {
+                if (Main.mainGame.charBerserk.inventory.Count <= Berserk.INVENTORYSIZE)
+                {
+                    Main.mainGame.charBerserk.inventory.Add(this);
+                    Main.mainGame.charBerserk.RenewInventory(this);
+                    GetComponent<Renderer>().enabled = false;
+                    GetComponent<SphereCollider>().enabled = false;
+                }
+                Debug.Log("ActivationObject Enemy");
+            }
             GetComponent<Renderer>().enabled = true;
             GetComponent<SphereCollider>().enabled = true;
+            isVision = true;
 
             if (!openedObject) return;
             if (openedObject.GetComponent<IInteractibleObject>() == null) return;
@@ -31,5 +43,6 @@ namespace BerserkAdventure {
             //Debug.Log(massage);
             return massage;
         }
+       
     }
 }

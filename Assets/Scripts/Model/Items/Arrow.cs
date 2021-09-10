@@ -11,7 +11,6 @@ namespace BerserkAdventure
 
 		private void OnCollisionEnter(UnityEngine.Collision collision)
 		{
-			//Debug.Log("arrow OnCollisionEnter(UnityEngine.Collision collision)");
 			SetDamage(collision.gameObject.GetComponent<ISetHp>());
 			if (_count <= 0)
 			{
@@ -22,9 +21,10 @@ namespace BerserkAdventure
 			--_count;
 		}
 
-		private void SetDamage(ISetHp obj)
+
+        private void SetDamage(ISetHp obj)
 		{
-			_curDamage = Random.Range(10,20);
+			//_curDamage = Random.Range(10,20);
 			if (obj != null) obj.SetHp(new InfoOfCollision(_currentDamage, transform.forward));
 		}
 

@@ -14,6 +14,9 @@ namespace BerserkAdventure
         [SerializeField] private GameObject berserk;
         UiLoader uiLoader;
         public static int playerScore;
+        [SerializeField]  List<Enemy> enemies;
+        public static int enemyCount;
+        [HideInInspector] public Berserk charBerserk;
         public Canvas[] allCanvases;
 
         public GameStage currentGameStage = GameStage.MainMenu;
@@ -35,7 +38,6 @@ namespace BerserkAdventure
         public Language language;
         #endregion
 
-        Berserk charBerserk;
 
 
         private void Awake()
@@ -183,6 +185,8 @@ namespace BerserkAdventure
 
         private void GameStart()
         {
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
+            enemyCount = enemies.Length;
             currentGameStage = GameStage.Game;
             StartLoadGame();
             //uiTimerText = FindObjectOfType<UiTimerText>();
@@ -222,7 +226,7 @@ namespace BerserkAdventure
         {
             if (mainGame.currentGameStage == GameStage.Game)
             {
-                    uiLoader.CanvasSwitchOn("FinalWin", null);
+                    uiLoader.CanvasSwitchOn("Win", null);
                     Time.timeScale = 0;
                     return;
             }

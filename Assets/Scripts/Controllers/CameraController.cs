@@ -54,7 +54,7 @@ namespace BerserkAdventure
         private float xMaxLimit = 360f;
         private float cullingHeight = 0.2f;
         private float cullingMinDist = 0.1f;
-        Transform raycastTransform;
+
         UiActionMassageText uiActionMassageText;
 
         #endregion
@@ -83,7 +83,6 @@ namespace BerserkAdventure
 
             distance = defaultDistance;
             currentHeight = height;
-            raycastTransform = GameObject.FindGameObjectWithTag("RayCastPoint").transform;
         }
 
         void FixedUpdate()
@@ -95,29 +94,45 @@ namespace BerserkAdventure
 
         public GameObject InteractibleObjectSearch()
         {
-            RaycastHit hitInfo;
+            //RaycastHit hitInfo;
+            RaycastHit[] hits;
+
             if (currentTarget)
             {
-                if (Physics.Raycast(raycastTransform.position, raycastTransform.forward, out hitInfo, 100.0f))
+                hits = Physics.RaycastAll(transform.position, transform.forward, 10.0F);
+                for (int i = 0; i < hits.Length; i++)
                 {
-                    if (hitInfo.collider.GetComponent<QuestKey>())
+                    if (hits[i].collider.GetComponent<QuestKey>())
                     {
-                        hitInfo.collider.GetComponent<QuestKey>().ObjectMassage();
+                        hits[i].collider.GetComponent<QuestKey>().ObjectMassage();
+                        return hits[i].collider.gameObject;
                     }
-                     else if (hitInfo.collider.GetComponent<QuestCandles>())
-                     {
-                        hitInfo.collider.GetComponent<QuestCandles>().ObjectMassage();
-                     }
-                    else
+                    else if (hits[i].collider.GetComponent<QuestCandles>())
                     {
-                        if (!uiActionMassageText)
+                        hits[i].collider.GetComponent<QuestCandles>().ObjectMassage();
+                        return hits[i].collider.gameObject;
+                    }
+                    else if (hits[i].collider.GetComponent<EnemySphere>())
+                    {
+                        hits[i].collider.GetComponent<EnemySphere>().ObjectMassage();
+                        return hits[i].collider.gameObject;
+                    }
+                    else if (hits[i].collider.GetComponent<HpPotion>())
+                    {
+                        hits[i].collider.GetComponent<HpPotion>().ObjectMassage();
+                        return hits[i].collider.gameObject;
+                    }
+                    else if (hits[i].collider.GetComponent<StaminaPotion>())
+                    {
+                        hits[i].collider.GetComponent<StaminaPotion>().ObjectMassage();
+                        return hits[i].collider.gameObject;
+                    }
+                }
+                if (!uiActionMassageText)
                         {
                             uiActionMassageText = FindObjectOfType<UiActionMassageText>();
                         }
-                        uiActionMassageText.Text = "";
-                    }
-                    return hitInfo.collider.gameObject;
-                }
+                        uiActionMassageText.Text = " ";
             }
             return null;
         }

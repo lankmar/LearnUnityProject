@@ -9,6 +9,7 @@ TagManager:
   - Key
   - Canvas
   - WayPoint
+  - Enemy
   layers:
   - Default
   - TransparentFX

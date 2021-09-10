@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace BerserkAdventure
 {
+    [RequireComponent(typeof(AudioSource))]
     public class QuestKey : MonoBehaviour, IInteractibleObject
     {
-        string massage = "Нажать";
+        [SerializeField] AudioSource audio;
+        [SerializeField] AudioClip clip;
+
+        [SerializeField] string massage = "Нажать";
+
         [ SerializeField] GameObject openedObject;
         UiActionMassageText uiActionMassageText;
 
@@ -13,7 +18,7 @@ namespace BerserkAdventure
         {
             if (!openedObject) return;
             if (openedObject.GetComponent<IInteractibleObject>() == null) return;
-
+            if (audio) audio.PlayOneShot(clip);
             openedObject.GetComponent<IInteractibleObject>().ActivationObject();
         }
 
@@ -24,7 +29,6 @@ namespace BerserkAdventure
                 uiActionMassageText = FindObjectOfType<UiActionMassageText>();
             }
             uiActionMassageText.Text = massage;
-           //Debug.Log(massage);
             return massage;
         }
     }

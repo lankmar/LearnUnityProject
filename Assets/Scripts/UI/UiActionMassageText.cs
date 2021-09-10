@@ -10,7 +10,6 @@ namespace BerserkAdventure
         private void Start()
         {
             _text = GetComponent<Text>();
-            SetPositionAndSize();
         }
 
         public string Text
@@ -30,10 +29,6 @@ namespace BerserkAdventure
             _text.gameObject.SetActive(value);
         }
 
-        private void SetPositionAndSize()
-        {
-            gameObject.transform.localScale = new Vector2(1, 1);
-            // gameObject.transform.position = new Vector3(Screen.width / 10, Screen.height - Screen.height / 10f);
-        }
+
     }
 }

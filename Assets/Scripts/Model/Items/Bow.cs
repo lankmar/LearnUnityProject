@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace BerserkAdventure
 {
+	[RequireComponent (typeof(AudioSource))]
 	public class Bow : BaseWeapon
 	{
+		[SerializeField] AudioSource audio;
+		public AudioClip clip;
 		private void Start()
 		{
 			Ammunition = UnityEngine.Resources.Load<Arrow>("Arrow");
-			//for (var i = 0; i <= 5; i++)
-			//{
-			//	AddClip(new Clip { CountAmmunition = 2000 });
-			//}
+			audio.GetComponent<AudioSource>();
 
-			//ReloadClip();
 		}
 		public override void Fire()
 		{
@@ -23,15 +22,14 @@ namespace BerserkAdventure
 		private void ArrowInst()
 		{
 			if (!_isReady) return;
-			//if (Clip.CountAmmunition <= 0) return;
 			if (Ammunition)
 			{
+				audio.PlayOneShot(clip);
 				var temAmmunition = Instantiate(Ammunition, _barrel.position, _barrel.rotation);// Pool object
 				temAmmunition.AddForce(_barrel.forward * _force);
-				//Clip.CountAmmunition--;
+
 				_isReady = false;
 				Invoke(nameof(ReadyShoot), _rechergeTime);
-				//_timer.Start(_rechergeTime);
 			}
 		}
 	}
